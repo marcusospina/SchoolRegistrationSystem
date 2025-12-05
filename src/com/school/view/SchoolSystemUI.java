@@ -14,6 +14,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class SchoolSystemUI {
+
     private final StudentService studentService;
     private final InstructorService instructorService;
     private final CourseService courseService;
@@ -43,18 +44,31 @@ public class SchoolSystemUI {
             System.out.println("5. View Section Reports");
             System.out.println("6. Exit");
             System.out.print("Choose an option: ");
+
             String choice = scanner.nextLine().trim();
+
             switch (choice) {
-                case "1" -> loadData();
-                case "2" -> viewEntities();
-                case "3" -> createSectionFlow();
-                case "4" -> registerStudentFlow();
-                case "5" -> viewSectionReports();
-                case "6" -> {
+                case "1":
+                    loadData();
+                    break;
+                case "2":
+                    viewEntities();
+                    break;
+                case "3":
+                    createSectionFlow();
+                    break;
+                case "4":
+                    registerStudentFlow();
+                    break;
+                case "5":
+                    viewSectionReports();
+                    break;
+                case "6":
                     System.out.println("Exiting. Goodbye.");
                     return;
-                }
-                default -> System.out.println("Invalid option. Try again.");
+                default:
+                    System.out.println("Invalid option. Try again.");
+                    break;
             }
         }
     }
@@ -78,35 +92,47 @@ public class SchoolSystemUI {
         System.out.println("3. Courses");
         System.out.println("4. Classrooms");
         System.out.print("Choose: ");
+
         String c = scanner.nextLine().trim();
+
         switch (c) {
-            case "1" -> {
+            case "1":
                 System.out.printf("\n%-8s %-20s %-20s %-8s%n", "ID", "Name", "Major", "Credits");
                 for (Student s : studentService.getAll().values()) {
                     System.out.printf("%-8s %-20s %-20s %-8d%n",
                             s.getId(), s.getName(), s.getMajor(), s.getCurrentCredits());
                 }
-            }
-            case "2" -> {
+                break;
+
+            case "2":
                 System.out.printf("\n%-8s %-25s %-20s %-8s%n", "ID", "Name", "QualifiedCourses", "Load");
                 for (Instructor i : instructorService.getAll().values()) {
                     System.out.printf("%-8s %-25s %-20s %-8d%n",
-                            i.getId(), i.getName(), String.join("|", i.getQualifiedCourses()), i.getCurrentLoad());
+                            i.getId(), i.getName(),
+                            String.join("|", i.getQualifiedCourses()),
+                            i.getCurrentLoad());
                 }
-            }
-            case "3" -> {
+                break;
+
+            case "3":
                 System.out.printf("\n%-8s %-30s %-8s%n", "CourseID", "Name", "Credits");
                 for (Course cObj : courseService.getAll().values()) {
-                    System.out.printf("%-8s %-30s %-8d%n", cObj.getCourseId(), cObj.getName(), cObj.getCredits());
+                    System.out.printf("%-8s %-30s %-8d%n",
+                            cObj.getCourseId(), cObj.getName(), cObj.getCredits());
                 }
-            }
-            case "4" -> {
+                break;
+
+            case "4":
                 System.out.printf("\n%-10s %-10s %-12s%n", "Room", "Computer", "Smartboard");
                 for (Classroom r : classroomService.getAll().values()) {
-                    System.out.printf("%-10s %-10s %-12s%n", r.getRoomNumber(), r.isHasComputer(), r.isHasSmartboard());
+                    System.out.printf("%-10s %-10s %-12s%n",
+                            r.getRoomNumber(), r.isHasComputer(), r.isHasSmartboard());
                 }
-            }
-            default -> System.out.println("Invalid selection.");
+                break;
+
+            default:
+                System.out.println("Invalid selection.");
+                break;
         }
     }
 
@@ -128,7 +154,8 @@ public class SchoolSystemUI {
         System.out.printf("\nEligible Instructors for %s:%n", courseId);
         System.out.printf("%-8s %-25s %-8s%n", "ID", "Name", "CurrentLoad");
         for (Instructor i : eligible) {
-            System.out.printf("%-8s %-25s %-8d%n", i.getId(), i.getName(), i.getCurrentLoad());
+            System.out.printf("%-8s %-25s %-8d%n",
+                    i.getId(), i.getName(), i.getCurrentLoad());
         }
 
         System.out.print("Enter Instructor ID: ");
@@ -158,7 +185,8 @@ public class SchoolSystemUI {
 
         try {
             ClassSession session = registrationService.createClassSection(c, instr, r, capacity);
-            System.out.println("Section created: " + c.getCourseId() + "-" + session.getSectionNumber());
+            System.out.println("Section created: "
+                    + c.getCourseId() + "-" + session.getSectionNumber());
         } catch (SchoolException e) {
             System.err.println("Could not create section: " + e.getMessage());
         }
@@ -182,6 +210,7 @@ public class SchoolSystemUI {
         System.out.printf("\nAvailable Sections:%n");
         System.out.printf("%-10s %-10s %-25s %-10s %-10s%n",
                 "SectionKey", "Course", "Instructor", "Enrolled", "Capacity");
+
         for (Map.Entry<String, ClassSession> e : all.entrySet()) {
             ClassSession cs = e.getValue();
             System.out.printf("%-10s %-10s %-25s %-10d %-10d%n",
@@ -217,8 +246,10 @@ public class SchoolSystemUI {
 
         System.out.printf("\n%-10s %-10s %-25s %-10s %-10s %-20s%n",
                 "Section", "Course", "Instructor", "Enrolled", "Capacity", "Classroom");
+
         for (Map.Entry<String, ClassSession> e : all.entrySet()) {
             ClassSession cs = e.getValue();
+
             System.out.printf("%-10s %-10s %-25s %-10d %-10d %-20s%n",
                     e.getKey(),
                     cs.getCourse().getCourseId(),
@@ -226,6 +257,7 @@ public class SchoolSystemUI {
                     cs.getEnrolledStudents().size(),
                     cs.getMaxCapacity(),
                     cs.getClassroom().getRoomNumber());
+
             if (!cs.getEnrolledStudents().isEmpty()) {
                 System.out.println("  Enrolled Students:");
                 System.out.printf("    %-8s %-20s %-8s%n", "ID", "Name", "Credits");
@@ -234,8 +266,8 @@ public class SchoolSystemUI {
                             st.getId(), st.getName(), st.getCurrentCredits());
                 }
             }
+
             System.out.println();
         }
     }
 }
-
