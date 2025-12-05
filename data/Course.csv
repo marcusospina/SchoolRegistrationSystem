@@ -1,0 +1,67 @@
+MATH101,Calculus I,4
+MATH102,Calculus II,4
+MATH201,Linear Algebra,3
+MATH202,Differential Equations,3
+MATH203,Multivariable Calculus,4
+MATH210,Vector Calculus,3
+MATH301,Discrete Mathematics,3
+MATH302,Probability and Statistics,3
+MATH310,Number Theory,3
+MATH401,Abstract Algebra,3
+MATH402,Real Analysis,3
+MATH405,Complex Variables,3
+MATH450,Topology,3
+ENGR101,Introduction to Engineering,3
+ENGR102,Engineering Graphics,2
+ENGR201,Statics,3
+ENGR202,Dynamics,3
+ENGR205,Electric Circuits I,4
+ENGR206,Electric Circuits II,4
+ENGR301,Thermodynamics,3
+ENGR302,Fluid Mechanics,3
+ENGR310,Material Science,3
+ENGR320,Mechanics of Materials,3
+ENGR401,Control Systems,3
+ENGR405,Digital Signal Processing,3
+ENGR410,Robotics,3
+ENGR450,Senior Design Project,4
+CHEM101,General Chemistry I,4
+CHEM102,General Chemistry II,4
+CHEM201,Organic Chemistry I,4
+CHEM202,Organic Chemistry II,4
+CHEM210,Analytical Chemistry,4
+CHEM301,Physical Chemistry I,3
+CHEM302,Physical Chemistry II,3
+CHEM310,Inorganic Chemistry,3
+CHEM350,Environmental Chemistry,3
+CHEM401,Biochemistry I,3
+CHEM402,Biochemistry II,3
+CHEM410,Polymer Chemistry,3
+CHEM420,Medicinal Chemistry,3
+PHY101,General Physics I,4
+PHY102,General Physics II,4
+PHY201,Modern Physics,3
+PHY202,Classical Mechanics,3
+PHY250,Electronics for Scientists,3
+PHY301,Electromagnetism I,3
+PHY302,Electromagnetism II,3
+PHY305,Quantum Mechanics I,3
+PHY306,Quantum Mechanics II,3
+PHY401,Statistical Mechanics,3
+PHY402,Optics,3
+PHY410,Solid State Physics,3
+PHY450,Astrophysics,3
+BIO101,General Biology I,4
+BIO102,General Biology II,4
+BIO201,Genetics,4
+BIO202,Cell Biology,3
+BIO210,Botany,4
+BIO220,Zoology,4
+BIO301,Microbiology,4
+BIO302,Ecology,3
+BIO310,Human Anatomy,4
+BIO311,Human Physiology,4
+BIO401,Evolutionary Biology,3
+BIO402,Molecular Biology,3
+BIO405,Immunology,3
+BIO410,Neuroscience,3
