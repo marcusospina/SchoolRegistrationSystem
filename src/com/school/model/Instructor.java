@@ -6,13 +6,14 @@ import java.util.List;
 public class Instructor {
     private String id;
     private String name;
-    private List<String> qualifiedCourses = new ArrayList<>();
-    private List<ClassSession> teachingAssignment = new ArrayList<>();
+    private List<String> qualifiedCourses;
+    private List<ClassSession> teachingAssignment;
 
     public Instructor(String id, String name, List<String> qualifiedCourses) {
         this.id = id;
         this.name = name;
-        if (qualifiedCourses != null) this.qualifiedCourses = qualifiedCourses;
+        this.qualifiedCourses = qualifiedCourses;
+        this.teachingAssignment = new ArrayList<>();
     }
 
     public String getId() { return id; }
@@ -32,28 +33,20 @@ public class Instructor {
     }
 
     public boolean canTeach(Course c) {
-        if (c == null) return false;
         return qualifiedCourses.contains(c.getCourseId());
     }
 
     public int getCurrentLoad() {
-        int sum = 0;
-        for (ClassSession cs : teachingAssignment) {
-            if (cs != null && cs.getCourse() != null) {
-                sum += cs.getCourse().getCredits();
-            }
+        int load = 0;
+        for (ClassSession s : teachingAssignment) {
+            load += s.getCourse().getCredits();
         }
-        return sum;
+        return load;
     }
 
-    @Override
+
     public String toString() {
-        return "Instructor{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", qualifiedCourses=" + qualifiedCourses +
-                ", teaching=" + teachingAssignment.size() +
-                '}';
+        return id + " - " + name + " | Qualified: " + qualifiedCourses;
     }
 }
 
