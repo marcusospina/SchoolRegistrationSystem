@@ -7,14 +7,16 @@ public class Student {
     private String id;
     private String name;
     private String major;
-    private List<ClassSession> enrolledClasses = new ArrayList<>();
+    private List<ClassSession> enrolledClasses;
 
+//contructor to initialize fields above
     public Student(String id, String name, String major) {
         this.id = id;
         this.name = name;
         this.major = major;
+        this.enrolledClasses = new ArrayList<>();
     }
-
+// getters and setters for all fields
     public String getId() { return id; }
     public void setId(String id) { this.id = id; }
 
@@ -28,25 +30,18 @@ public class Student {
     public void setEnrolledClasses(List<ClassSession> enrolledClasses) {
         this.enrolledClasses = enrolledClasses;
     }
-
+/* method iterates through enrolledClasses and sums the credits of the
+associated courses.*/
     public int getCurrentCredits() {
         int sum = 0;
-        for (ClassSession cs : enrolledClasses) {
-            if (cs != null && cs.getCourse() != null) {
-                sum += cs.getCourse().getCredits();
-            }
+        for (ClassSession s : enrolledClasses) {
+            sum += s.getCourse().getCredits();
         }
         return sum;
     }
 
-    @Override
+// toString() for debugging and printing
     public String toString() {
-        return "Student{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", major='" + major + '\'' +
-                ", enrolled=" + enrolledClasses.size() +
-                '}';
-    }
+        return id + " - " + name + " (" + major + ")";
 }
 
