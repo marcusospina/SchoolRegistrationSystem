@@ -20,13 +20,8 @@ public class Classroom {
     public boolean isHasSmartboard() { return hasSmartboard; }
     public void setHasSmartboard(boolean hasSmartboard) { this.hasSmartboard = hasSmartboard; }
 
-    @Override
+
     public String toString() {
-        return "Classroom{" +
-                "roomNumber='" + roomNumber + '\'' +
-                ", hasComputer=" + hasComputer +
-                ", hasSmartboard=" + hasSmartboard +
-                '}';
+         return roomNumber + " [Computer=" + hasComputer + ", Smartboard=" + hasSmartboard + "]";
     }
 }
-
