@@ -9,7 +9,7 @@ public class ClassSession {
     private Classroom classroom;
     private int sectionNumber;
     private int maxCapacity;
-    private List<Student> enrolledStudents = new ArrayList<>();
+    private List<Student> enrolledStudents;
 
     public ClassSession(Course course, Instructor instructor, Classroom classroom,
                         int sectionNumber, int maxCapacity) {
@@ -18,6 +18,7 @@ public class ClassSession {
         this.classroom = classroom;
         this.sectionNumber = sectionNumber;
         this.maxCapacity = maxCapacity;
+        this.enrolledStudents = new ArrayList<>();
     }
 
     public Course getCourse() { return course; }
@@ -44,16 +45,15 @@ public class ClassSession {
         return enrolledStudents.size() >= maxCapacity;
     }
 
-    @Override
+// %s and %d are j placeholders to format
     public String toString() {
-        return "ClassSession{" +
-                "course=" + course +
-                ", instructor=" + (instructor != null ? instructor.getName() : "null") +
-                ", classroom=" + (classroom != null ? classroom.getRoomNumber() : "null") +
-                ", sectionNumber=" + sectionNumber +
-                ", maxCapacity=" + maxCapacity +
-                ", enrolled=" + enrolledStudents.size() +
-                '}';
+        return String.format("%s Sec-%d | Room: %s | Instructor: %s | Enrolled: %d/%d",
+                course.getCourseId(),
+                sectionNumber,
+                classroom.getRoomNumber(),
+                instructor.getName(),
+                enrolledStudents.size(),
+                maxCapacity
     }
 }
 
