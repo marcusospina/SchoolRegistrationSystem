@@ -10,18 +10,14 @@ public final class Course {
         this.name = name;
         this.credits = credits;
     }
-
+//no setters because immutable representation
     public String getCourseId() { return courseId; }
     public String getName() { return name; }
     public int getCredits() { return credits; }
 
-    @Override
+
     public String toString() {
-        return "Course{" +
-                "courseId='" + courseId + '\'' +
-                ", name='" + name + '\'' +
-                ", credits=" + credits +
-                '}';
+        return courseId + " - " + name + " (" + credits + " credits)";
     }
 }
 
