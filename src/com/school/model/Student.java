@@ -43,5 +43,6 @@ associated courses.*/
 // toString() for debugging and printing
     public String toString() {
         return id + " - " + name + " (" + major + ")";
+    }
 }
 
