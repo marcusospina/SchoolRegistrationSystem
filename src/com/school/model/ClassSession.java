@@ -53,7 +53,7 @@ public class ClassSession {
                 classroom.getRoomNumber(),
                 instructor.getName(),
                 enrolledStudents.size(),
-                maxCapacity
+                maxCapacity);
     }
 }
 
