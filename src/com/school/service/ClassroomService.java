@@ -1,39 +1,56 @@
-package com.school.app.service;
+package com.school.service;
 
 import com.school.model.Classroom;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
 public class ClassroomService {
 
-    public static Map<String, Classroom> load() {
-        Map<String, Classroom> classrooms = new HashMap<>();
+    private final Map<String, Classroom> rooms = new HashMap<>();
 
-        try {
-            Scanner sc = new Scanner(new File("data/Classroom.csv"));
+    // Add a classroom to the internal map
+    public void addRoom(Classroom r) {
+        rooms.put(r.getRoomNumber(), r);
+    }
 
+    // Get a classroom by room number
+    public Classroom getRoom(String roomNumber) {
+        return rooms.get(roomNumber);
+    }
+
+    // Get all classrooms
+    public Map<String, Classroom> getAll() {
+        return rooms;
+    }
+
+    // Load classrooms from a CSV file
+    public void loadFromCsv(String path) throws IOException {
+        Path p = Paths.get(path);
+
+        try (Scanner sc = new Scanner(new File(p.toString()))) {
             while (sc.hasNextLine()) {
-                String line = sc.nextLine().trim();
-                if (line.isEmpty()) continue;
+                String line = sc.nextLine();
 
-                String[] parts = line.split(",");
-                if (parts.length < 3) continue;
+                // Skip empty lines
+                if (line.trim().isEmpty()) continue;
 
-                String room = parts[0].trim();
-                boolean hasComp = Boolean.parseBoolean(parts[1].trim());
-                boolean hasBoard = Boolean.parseBoolean(parts[2].trim());
+                // Split CSV line
+                String[] parts = line.split(",", -1);
+                if (parts.length >= 3) {
+                    String room = parts[0].trim();
+                    boolean hasComputer = Boolean.parseBoolean(parts[1].trim());
+                    boolean hasSmartboard = Boolean.parseBoolean(parts[2].trim());
 
-                classrooms.put(room, new Classroom(room, hasComp, hasBoard));
+                    // Create and add classroom
+                    addRoom(new Classroom(room, hasComputer, hasSmartboard));
+                }
             }
-
-            sc.close();
-        } catch (Exception e) {
-            System.out.println("Error loading Classroom.csv: " + e.getMessage());
         }
-
-        return classrooms;
     }
 }
