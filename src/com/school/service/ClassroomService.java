@@ -1,41 +1,49 @@
-package com.school.service;
+package com.school.app.service;
 
-import com.school.model.Classroom;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
+
+import com.school.app.model.Classroom;
 
 public class ClassroomService {
-    private final Map<String, Classroom> rooms = new HashMap<>();
+  public static Map<String, Classroom> load() {
+    Map<String, Classroom> classrooms = new HashMap<>();
 
-    public void addRoom(Classroom r) {
-        rooms.put(r.getRoomNumber(), r);
-    }
+      
+    Path path = Paths.get("data", "Classroom.csv");
+    String filePath = String.valueOf(path);
 
-    public Classroom getRoom(String roomNumber) {
-        return rooms.get(roomNumber);
-    }
+      
+    try (Scanner scanner = new Scanner(new File(filePath))) {
+      while (scanner.hasNextLine()) {
+        String line = scanner.nextLine();
 
-    public Map<String, Classroom> getAll() { return rooms; }
-
-    public void loadFromCsv(String path) throws IOException {
-        try (BufferedReader br = Files.newBufferedReader(Paths.get(path))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                if (line.trim().isEmpty()) continue;
-                String[] parts = line.split(",", -1);
-                if (parts.length >= 3) {
-                    String room = parts[0].trim();
-                    boolean hasComputer = Boolean.parseBoolean(parts[1].trim());
-                    boolean hasSmartboard = Boolean.parseBoolean(parts[2].trim());
-                    addRoom(new Classroom(room, hasComputer, hasSmartboard));
-                }
-            }
+          
+        if (line.trim().isEmpty()) {
+          continue;
         }
-    }
-}
 
+        String[] columns = line.split(",");
+
+        String roomNumberField = columns[0];
+        boolean hasComputerField = Boolean.parseBoolean(columns[1]);
+        boolean hasSmartboardField = Boolean.parseBoolean(columns[2]);
+
+        Classroom classroom = new Classroom(
+            roomNumberField,
+            hasComputerField,
+            hasSmartboardField);
+        classrooms.put(roomNumberField, classroom);
+      }
+
+    } catch (Exception e) {
+      System.out.println(e);
+    }
+
+    return classrooms;
+  }
+}
