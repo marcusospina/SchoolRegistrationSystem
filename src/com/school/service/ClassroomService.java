@@ -1,6 +1,6 @@
 package com.school.app.service;
 
-import com.school.app.model.Classroom;
+import com.school.model.Classroom;
 
 import java.io.File;
 import java.util.HashMap;
