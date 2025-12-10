@@ -1,49 +1,39 @@
 package com.school.app.service;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import com.school.app.model.Classroom;
+
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-import com.school.app.model.Classroom;
-
 public class ClassroomService {
-  public static Map<String, Classroom> load() {
-    Map<String, Classroom> classrooms = new HashMap<>();
 
-      
-    Path path = Paths.get("data", "Classroom.csv");
-    String filePath = String.valueOf(path);
+    public static Map<String, Classroom> load() {
+        Map<String, Classroom> classrooms = new HashMap<>();
 
-      
-    try (Scanner scanner = new Scanner(new File(filePath))) {
-      while (scanner.hasNextLine()) {
-        String line = scanner.nextLine();
+        try {
+            Scanner sc = new Scanner(new File("data/Classroom.csv"));
 
-          
-        if (line.trim().isEmpty()) {
-          continue;
+            while (sc.hasNextLine()) {
+                String line = sc.nextLine().trim();
+                if (line.isEmpty()) continue;
+
+                String[] parts = line.split(",");
+                if (parts.length < 3) continue;
+
+                String room = parts[0].trim();
+                boolean hasComp = Boolean.parseBoolean(parts[1].trim());
+                boolean hasBoard = Boolean.parseBoolean(parts[2].trim());
+
+                classrooms.put(room, new Classroom(room, hasComp, hasBoard));
+            }
+
+            sc.close();
+        } catch (Exception e) {
+            System.out.println("Error loading Classroom.csv: " + e.getMessage());
         }
 
-        String[] columns = line.split(",");
-
-        String roomNumberField = columns[0];
-        boolean hasComputerField = Boolean.parseBoolean(columns[1]);
-        boolean hasSmartboardField = Boolean.parseBoolean(columns[2]);
-
-        Classroom classroom = new Classroom(
-            roomNumberField,
-            hasComputerField,
-            hasSmartboardField);
-        classrooms.put(roomNumberField, classroom);
-      }
-
-    } catch (Exception e) {
-      System.out.println(e);
+        return classrooms;
     }
-
-    return classrooms;
-  }
 }
