@@ -5,3 +5,4 @@ public class SchoolException extends Exception {
         super(message);
     }
 }
+  
