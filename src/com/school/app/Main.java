@@ -1,22 +1,26 @@
 package com.school.app;
 
-import com.school.model.*;
 import com.school.service.*;
 import com.school.view.SchoolSystemUI;
 
 public class Main {
     public static void main(String[] args) {
-        // instantiate services
+
+        // Create services
         CourseService courseService = new CourseService();
         StudentService studentService = new StudentService();
         InstructorService instructorService = new InstructorService();
         ClassroomService classroomService = new ClassroomService();
 
+        // Registration service depends on the others
         RegistrationService registrationService = new RegistrationService(
-                instructorService, courseService, classroomService, studentService
+                instructorService,
+                courseService,
+                classroomService,
+                studentService
         );
 
-        // UI
+        // Create the UI and run the system
         SchoolSystemUI ui = new SchoolSystemUI(
                 studentService,
                 instructorService,
@@ -25,8 +29,6 @@ public class Main {
                 registrationService
         );
 
-        // run menu loop
         ui.runMainLoop();
     }
 }
-
